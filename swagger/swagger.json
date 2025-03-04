@@ -1,0 +1,1040 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Agridhaan API",
+      "description": "Agridhan API to be implemented in apps for complete funtionality",
+      "version": "1.0.0"
+    }, 
+    "servers": [
+      {
+        "url": "https://agridhaan-api-koker7s2ga-el.a.run.app/api",
+        "description": ""
+      }
+    ],
+    "paths": {
+      "/auth/sendotp": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Send OTP",
+          "description": "Send OTP",
+          "requestBody": {
+            "description": "Phone Number of User object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendOTP"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200":{
+                "description": "Providing temporary token",
+                "content": {
+                    "application/json":{
+                        "schema": {
+                            "$ref": "#/components/schemas/SendOTPresponse"
+                        }
+                    }
+                }
+            }
+          }
+        }
+      },
+      "/auth/verifyotp": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "summary": "Verify OTP",
+          "description": "Verify OTP",
+          "requestBody": {
+            "description": "User entered otp and temporary token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyOTP"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+                "description": "If user already exists providing permanent access token in which user id is encypted",
+                "content": {
+                    "application/json":{
+                        "schema": {
+                            "$ref": "#/components/schemas/SendOTPresponse"
+                        }
+                    }
+                }
+            },
+            "201": {
+                "description": "If user doesn't exists. New user created and then providing permanent access token in which user id is encypted",
+                "content": {
+                    "application/json":{
+                        "schema": {
+                            "$ref": "#/components/schemas/SendOTPresponse"
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "OTP entered by user is wrong",
+                "content": {
+                    "application/json":{
+                        "schema": {
+                            "$ref": "#/components/schemas/WrongOTP"
+                        }
+                    }
+                }
+            },
+            "500":{
+                "description": "Internal Server Error",
+                "content": {
+                    "application/json":{
+                        "schema": {
+                            "$ref": "#/components/schemas/InternalServerError"
+                        }
+                    }
+                }
+            }
+          }
+        }
+      },
+      "/user/name/{id}": {
+        "put": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Change name of user by id",
+          "description": "Change name of user by id",
+          "requestBody": {
+            "description": "Updated Name object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeName"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+                "description": "Updated Name object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/SuccessResponse"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Updated Name internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/user/{id}": {
+        "delete": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Delete user by id",
+          "description": "Delete user by id",
+          "responses": {
+            "200": {
+                "description": "Success object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/SuccessResponse"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/user/profilepic/{id}": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Change profilepic of user by id",
+          "description": "Change profilepic of user by id",
+          "requestBody": {
+            "description": "Updated Profilepic object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeProfilePic"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+                "description": "Updated Profile Pic object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/SuccessResponse"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/user/getUserProfile": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Get data of current user",
+          "description": "Get data of current user",
+          "responses": {
+            "200": {
+                "description": "Get data of current user object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/GetAllUsers"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/user/userRoles": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Add role to current user",
+          "description": "Add role to current user",
+          "requestBody": {
+            "description": "Add role to current user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddRole"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+                "description": "Get data of current user object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/UserData"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/document/certificate": {
+        "post": {
+          "tags": [
+            "Document"
+          ],
+          "summary": "Add certificate of user for labourprovider role",
+          "description": "Add certificate of user for labourprovider role",
+          "requestBody": {
+            "description": "Add certificate of user for labourprovider role",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Certificate"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+                "description": "Certficate Added Succesfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/SuccessResponse"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/document/aadhar": {
+        "post": {
+          "tags": [
+            "Document"
+          ],
+          "summary": "Add aadhar of user",
+          "description": "Add aadhar of user",
+          "requestBody": {
+            "description": "Add aadhar of user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAadhar"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+                "description": "Certficate Added Succesfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/SuccessResponse"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/document/bankdetail": {
+        "post": {
+          "tags": [
+            "Document"
+          ],
+          "summary": "Add bank details of user",
+          "description": "Add bank details of user",
+          "requestBody": {
+            "description": "Add cbank details of user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankDetail"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+                "description": "Certficate Added Succesfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/SuccessResponse"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/admin/getAllUsers": {
+        "get": {
+          "tags": [
+            "Admin"
+          ],
+          "summary": "Get list of all users",
+          "description": "Get list of all users",
+          "responses": {
+            "200": {
+                "description": "Get data of current user object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/GetAllUser"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/address/getAddresses": {
+        "get": {
+          "tags": [
+            "Address"
+          ],
+          "summary": "Get list of all addresses of user",
+          "description": "Get list of all addresses of user",
+          "responses": {
+            "200": {
+                "description": "list of all addresses of user object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/GetAllAddress"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/address/getAddress/{id}": {
+        "get": {
+          "tags": [
+            "Address"
+          ],
+          "summary": "Get address of user by addressId",
+          "description": "Get address of user by addressId",
+          "responses": {
+            "200": {
+                "description": "address of user by addressId object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Address"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/address/updateAddress/{id}": {
+        "put": {
+          "tags": [
+            "Address"
+          ],
+          "summary": "Update address by address id",
+          "description": "Update address by address id",
+          "requestBody": {
+            "description": "Updated Address object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAddress"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+                "description": "Address Updated",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/SuccessAddress"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/address/deleteAddress/{id}": {
+        "delete": {
+          "tags": [
+            "Address"
+          ],
+          "summary": "Delete address of user by address id",
+          "description": "Delete address of user by address id",
+          "responses": {
+            "200": {
+                "description": "Success object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/SuccessResponse"
+                    }
+                  }
+                }
+            },
+            "500": {
+                "description": "Internal server error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/InternalServerError"
+                    }
+                  }
+                }
+            }
+          }
+        }
+      },
+      "/address/addAddress": {
+        "put": {
+            "tags": [
+              "Address"
+            ],
+            "summary": "Add a new address",
+            "requestBody": {
+              "description": "Address object",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                  "description": "Address Added Successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/SuccessAddress"
+                      }
+                    }
+                  }
+              },
+              "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "SendOTP": {
+          "type": "object",
+          "properties": {
+            "phone": {
+              "type": "string",
+              "example":"8840321564"
+            }
+          },
+          "xml": {
+            "name": "SendOTP"
+          }
+        },
+        "SendOTPresponse": {
+          "type": "object",
+          "properties": {
+            "response": {
+                "type": "string",
+                "example": 200
+            },
+            "token": {
+              "type": "string",
+              "example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NmIyMGNjNjRmYmQyZDA2YWU0NGU2NCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2ODU5NjUyNDUsImV4cCI6MTY4NjIyNDQ0NX0.89KiPvR7UG2s5nUWFqbidbHaje-VEP33EINPKIFqa4E"
+            }
+          },
+          "xml": {
+            "name": "SendOTPresponse"
+          }
+        },
+        "WrongOTP": {
+          "type": "object",
+          "properties": {
+            "response": {
+                "type": "string",
+                "example": 400
+            },
+            "error": {
+              "type": "string",
+              "example":"Wrong OTP entered. Try again..."
+            }
+          },
+          "xml": {
+            "name": "WrongOTP"
+          }
+        },
+        "VerifyOTP": {
+          "type": "object",
+          "properties": {
+            "otp": {
+                "type": "string",
+                "example": 200200
+            },
+            "token": {
+              "type": "string",
+              "example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NmIyMGNjNjRmYmQyZDA2YWU0NGU2NCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2ODU5NjUyNDUsImV4cCI6MTY4NjIyNDQ0NX0.89KiPvR7UG2s5nUWFqbidbHaje-VEP33EINPKIFqa4E"
+            }
+          },
+          "xml": {
+            "name": "VerifyOTP"
+          }
+        },
+        "InternalServerError": {
+          "type": "object",
+          "properties": {
+            "response": {
+                "type": "string",
+                "example": 500
+            },
+            "error": {
+              "type": "string",
+              "example":"Internal Server Error"
+            }
+          },
+          "xml": {
+            "name": "InternalServerError"
+          }
+        },
+        "ChangeName": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example":"Aditya Kumar Kasaudhan"
+            }
+          },
+          "xml": {
+            "name": "ChangeName"
+          }
+        },
+        "ChangeProfilePic": {
+          "type": "object",
+          "properties": {
+            "profilepic": {
+              "type": "string",
+              "example":"hkuasgdkbdkjbkjadbkjbdkjbdkjbdakbkjdbkbadkjhdbajkbakjdbkaudhkdhkjbadkbakhkdahkahadkhahdaadkjbjbabjakdba"
+            }
+          },
+          "xml": {
+            "name": "ChangeProfilePic"
+          }
+        },
+        "AddRole": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "type": "string",
+              "example":"farmer"
+            }
+          },
+          "xml": {
+            "name": "AddRole"
+          }
+        },
+        "GetAllUser": {
+          "type": "object",
+          "properties": {
+            "response": {
+              "type": "string",
+              "example":"200"
+            },
+            "users": {
+              "type": "list",
+              "example": [
+                {
+                    "_id": "646b20cc64fbd2d06ae44e64",
+                    "name": "null",
+                    "mobile": "8840321564",
+                    "profilepic": "null",
+                    "isApproved": false,
+                    "isAdmin": false,
+                    "userrole": [
+                        {
+                            "role": "vlc",
+                            "_id": "646b20e164fbd2d06ae44e66"
+                        }
+                    ],
+                    "addresses": [],
+                    "createdAt": "2023-05-22T07:59:08.710Z",
+                    "updatedAt": "2023-05-22T07:59:29.754Z",
+                    "__v": 0
+                }
+              ]
+            }
+          },
+          "xml": {
+            "name": "RegisterAdmin"
+          }
+        },
+        "GetAllAddress": {
+          "type": "object",
+          "properties": {
+            "response": {
+              "type": "string",
+              "example":"200"
+            },
+            "users": {
+              "type": "list",
+              "example": [
+                {
+                    "_id": "1",
+                    "name": "Aditya",
+                    "mobile": "8840321564",
+                    "addressLine": "saba/aa12, valley road",
+                    "district": "Prayagraj",
+                    "state": "Uttar Pradesh",
+                    "block": "Tonwa",
+                    "village": "Champaran",
+                    "pincode": "226006"
+                }
+              ]
+            }
+          },
+          "xml": {
+            "name": "GetAllAddress"
+          }
+        },
+        "SuccessResponse": {
+          "type": "object",
+          "properties": {
+            "response": {
+              "type": "string",
+              "example":"200"
+            },
+            "message": {
+              "type": "string",
+              "example":"Updated Successfully."
+            }
+          },
+          "xml": {
+            "name": "SucessResponse"
+          }
+        },
+        "UserData": {
+          "type": "object",
+          "properties": {
+            "response": {
+                "type": "string",
+                "exmaple": "200"
+            },
+            "user": {
+                "type": "object",
+                "example": {
+                    "_id": "646b20cc64fbd2d06ae44e64",
+                    "name": "null",
+                    "mobile": "8840321564",
+                    "profilepic": "null",
+                    "isApproved": false,
+                    "isAdmin": false,
+                    "userrole": [
+                        {
+                            "role": "vlc",
+                            "_id": "646b20e164fbd2d06ae44e66"
+                        }
+                    ],
+                    "addresses": [],
+                    "createdAt": "2023-05-22T07:59:08.710Z",
+                    "updatedAt": "2023-05-22T07:59:29.754Z",
+                    "__v": 0
+                }
+            }
+          },
+          "xml": {
+            "name": "SucessResponse"
+          }
+        },
+        "CreateAddress": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "example": "Aditya"
+            },
+            "mobile": {
+                "type": "string",
+                "example": "8840321564"
+            },
+            "addressLine": {
+                "type": "string",
+                "example": "ABV/AHA, Valley Road"
+            },
+            "district": {
+                "type": "string",
+                "example": "Prayagraj"
+            },
+            "state": {
+                "type": "string",
+                "example": "Uttar Pradesh"
+            },
+            "block": {
+                "type": "string",
+                "example": "Singhariya"
+            },
+            "village": {
+                "type": "string",
+                "example": "Etwa"
+            },
+            "pincode": {
+                "type": "string",
+                "example": "273010"
+            }
+            },
+            "xml": {
+            "name": "Address"
+            }
+        },
+        "Address": {
+        "type": "object",
+        "properties": {
+            "response": {
+                "type": "string",
+                "example": "200"
+            },
+            "address": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Aditya"
+                    },
+                    "mobile": {
+                        "type": "string",
+                        "example": "8840321564"
+                    },
+                    "addressLine": {
+                        "type": "string",
+                        "example": "ABV/AHA, Valley Road"
+                    },
+                    "district": {
+                        "type": "string",
+                        "example": "Prayagraj"
+                    },
+                    "state": {
+                        "type": "string",
+                        "example": "Uttar Pradesh"
+                    },
+                    "block": {
+                        "type": "string",
+                        "example": "Singhariya"
+                    },
+                    "village": {
+                        "type": "string",
+                        "example": "Etwa"
+                    },
+                    "pincode": {
+                        "type": "string",
+                        "example": "273010"
+                    }
+                }
+            }
+            },
+            "xml": {
+                "name": "Address"
+            }
+        },
+        "CreateAadhar": {
+        "type": "object",
+        "properties": {
+            "aadharNo": {
+                "type": "string",
+                "example": "200000000000"
+            },
+            "aadharFront": {
+                "type": "string",
+                "example": "https://aadharfront.com/aa.png"
+            },
+            "aadharBack": {
+                "type": "string",
+                "example": "https://aadharfront.com/aa.png"
+            }
+            },
+            "xml": {
+                "name": "CreateAadhar"
+            }
+        },
+        "BankDetail": {
+        "type": "object",
+        "properties": {
+            "bankAc": {
+                "type": "string",
+                "example": "200000000000"
+            },
+            "bankIfsc": {
+                "type": "string",
+                "example": "PYTM0123456"
+            },
+            "bankName": {
+                "type": "string",
+                "example": "Paytm Payment Bank"
+            },
+            "AcHolderName": {
+                "type": "string",
+                "example": "Aditya Kumar Kasaudhan"
+            },
+            "AcPassbook": {
+                "type": "string",
+                "example": "https://aadharfront.com/aa.png"
+            }
+            },
+            "xml": {
+                "name": "BankDetail"
+            }
+        },
+        "Certificate": {
+        "type": "object",
+        "properties": {
+            "certificateNo": {
+                "type": "string",
+                "example": "200000000000"
+            },
+            "certificate": {
+                "type": "string",
+                "example": "https://aadharfront.com/aa.png"
+            }
+            },
+            "xml": {
+                "name": "Certificate"
+            }
+        },
+        "SuccessAddress": {
+        "type": "object",
+        "properties": {
+            "response": {
+                "type": "string",
+                "example": "200"
+            },
+            "message": {
+                "type": "string",
+                "example": "Address Added Successfully"
+            }
+        },
+        "xml": {
+            "name": "SuccessAddress"
+        }
+    }
+    },
+      "securitySchemes": {
+      "bearerAuth": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header",
+        "bearerFormat": "JWT"
+      }
+      }
+    }
+  }
