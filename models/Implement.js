@@ -5,10 +5,10 @@ const mongoose = require("mongoose")
 //Implement Schema
 const implementSchema = new mongoose.Schema(
     {
-        aadhar: {type: String},
-        bank: {type: String},
+        aadhar: {type: mongoose.Schema.Types.ObjectId, ref: 'Aadhar'},
+        bank: {type: mongoose.Schema.Types.ObjectId, ref: 'BankDetails'},
         drivingLicense: {type: String},
-        userId: {type: String, required: true, unique: true},
+        userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true},
         status: {
             type: String,
             required: true,

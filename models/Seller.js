@@ -5,10 +5,10 @@ const mongoose = require("mongoose")
 //Seller Schema
 const sellerSchema = new mongoose.Schema(
     {
-        aadhar: {type: String},
-        bank: {type: String},
-        gst: {type: String},
-        userId: {type: String, required: true, unique: true},
+        aadhar: {type: mongoose.Schema.Types.ObjectId, ref: 'Aadhar'},
+        bank: {type: mongoose.Schema.Types.ObjectId, ref: 'BankDetails'},
+        gst: {type: mongoose.Schema.Types.ObjectId, ref: 'GST'},
+        userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true},
         status: {
             type: String,
             required: true,

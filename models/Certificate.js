@@ -9,7 +9,7 @@ const certificateSchema = new mongoose.Schema(
     {
         certificateNo: {type: String, required: true},
         certificate: {type: String, required: true},
-        userId: {type: String, required: true},
+        userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
         status: {
             type: String,
             required: true,

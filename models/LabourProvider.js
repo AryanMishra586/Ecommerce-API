@@ -5,10 +5,10 @@ const mongoose = require("mongoose")
 //LabourProvider Schema
 const labourProviderSchema = new mongoose.Schema(
     {
-        aadhar: {type: String},
-        bank: {type: String},
-        certificate: {type: String},
-        userId: {type: String, required: true, unique: true},
+        aadhar: {type: mongoose.Schema.Types.ObjectId, ref: 'Aadhar'},
+        bank: {type: mongoose.Schema.Types.ObjectId, ref: 'BankDetails'},
+        certificate: {type: mongoose.Schema.Types.ObjectId, ref: 'Certificate'},
+        userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true},
         status: {
             type: String,
             required: true,

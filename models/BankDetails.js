@@ -12,7 +12,7 @@ const bankDetailsSchema = new mongoose.Schema(
         bankName: {type: String, required: true},
         AcHolderName: {type: String, required: true},
         AcPassbook: {type: String, required: true},
-        userId: {type: String, required: true},
+        userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
         status: {
             type: String,
             required: true,

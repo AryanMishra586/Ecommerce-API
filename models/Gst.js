@@ -12,7 +12,7 @@ const gstSchema = new mongoose.Schema(
         cin: {type: String, required: true},
         gst: {type: String, required: true},
         pan: {type: String, required: true},
-        userId: {type: String, required: true},
+        userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
         status: {
             type: String,
             required: true,
