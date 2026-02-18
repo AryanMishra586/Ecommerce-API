@@ -17,7 +17,16 @@ const addressSchema = new mongoose.Schema({
 })
 
 const userRoles = new mongoose.Schema({
-    role: {type: String, required: true}
+    role: {
+        type: String, 
+        required: true,
+        enum: ['vlc', 'seller', 'wholeseller', 'retailer', 'labourprovider', 'implement']
+    },
+    status: {
+        type: String,
+        default: 'pending',
+        enum: ['pending', 'approved', 'rejected']
+    }
 })
 
 
@@ -37,6 +46,7 @@ const userSchema = new mongoose.Schema(
         addresses: [addressSchema],
         isApproved: {type: Boolean, default: false},
         isAdmin: { type: Boolean, default: false},
+        isSuperAdmin: { type: Boolean, default: false},
     },
     {timestamps: true}
 );
